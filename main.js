@@ -10,7 +10,8 @@ const shareBtn = document.getElementById('shareBtn');
 const TRUSTED_SOURCES = [
     'https://cdn.altstore.io/file/altstore/apps.json',
     'https://community-apps.sidestore.io/sidecommunity.json',
-    'https://raw.githubusercontent.com/LiveContainer/LiveContainer/refs/heads/main/apps.json'
+    'https://raw.githubusercontent.com/LiveContainer/LiveContainer/refs/heads/main/apps.json',
+    'https://raw.githubusercontent.com/actuallyaridan/NeoFreeBird/refs/heads/main/AltSource.json'
 ];
 
 let currentSourceUrl = '';
@@ -57,6 +58,9 @@ async function loadTrustedSourcesCards() {
             if (!response.ok) continue;
             const data = await response.json();
 
+            // Resolve icon: prefer data.iconURL, else first app's iconURL, else empty
+            const cardIcon = data.iconURL || (data.apps && data.apps[0] && data.apps[0].iconURL) || '';
+
             const card = document.createElement('button');
             card.className = 'trusted-source-card';
             card.dataset.url = url;
@@ -66,7 +70,7 @@ async function loadTrustedSourcesCards() {
             };
 
             card.innerHTML = `
-                <img src="${data.iconURL || ''}" alt="${data.name}" class="source-card-icon">
+                <img src="${cardIcon}" alt="${data.name}" class="source-card-icon">
                 <div class="source-card-info">
                     <div class="source-card-name">${data.name || 'Unknown'}</div>
                     <div class="source-card-subtitle">${data.subtitle || ''}</div>
@@ -123,8 +127,12 @@ function displaySource(data, sourceUrl) {
         headerImageEl.innerHTML = `<img src="${data.headerURL}" alt="Header">`;
     } else if (data.iconURL) {
         headerImageEl.innerHTML = `<img src="${data.iconURL}" alt="Header">`;
+    } else if (data.apps && data.apps[0] && data.apps[0].iconURL) {
+        // use first app icon as banner if no header or icon
+        headerImageEl.innerHTML = `<img src="${data.apps[0].iconURL}" alt="Header">`;
     } else {
         headerImageEl.style.background = data.tintColor || '#f5f5f5';
+        headerImageEl.innerHTML = '';
     }
 
     // Source details with checkmark for trusted sources
@@ -139,7 +147,18 @@ function displaySource(data, sourceUrl) {
     }
 
     document.getElementById('sourceSubtitle').textContent = data.subtitle || '';
-    document.getElementById('sourceIcon').src = data.iconURL || '';
+
+    // Source icon: prefer data.iconURL, fallback to first app's icon if available
+    const resolvedIcon = data.iconURL || (data.apps && data.apps[0] && data.apps[0].iconURL) || '';
+    const sourceIconEl = document.getElementById('sourceIcon');
+    if (resolvedIcon) {
+        sourceIconEl.src = resolvedIcon;
+        sourceIconEl.style.display = '';
+    } else {
+        sourceIconEl.src = '';
+        sourceIconEl.style.display = 'none';
+    }
+
     document.getElementById('sourceDescription').textContent = data.description || '';
 
     // Website link
@@ -147,6 +166,7 @@ function displaySource(data, sourceUrl) {
     if (data.website) {
         websiteLink.href = data.website;
         websiteLink.textContent = data.website;
+        websiteLink.style.display = '';
     } else {
         websiteLink.style.display = 'none';
     }
