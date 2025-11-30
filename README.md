@@ -9,3 +9,7 @@ enter a source url or press a trusted source to view it's info
 Tap your sideloader on the source page to open your sideloader to add the source
 # How should i be viewing the tool?
 You should be on an iPhone using Safari to view this.
+# Trusted Sources
+SideStore Team Picks - provides a bunch of community made apps picked by the team behond SideStore
+LiveContainer - contains the LiveContainer app which bypasses Apple Developer Free Account Limits
+NeoFreeBird - containers the NeoFreeBird app which is a modified version of the Twitter app that reverts the stupid branding changes
