@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", sans-serif;
+    background: #fff;
+    color: #000;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.source-header-bar {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn,
+.share-btn {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.back-btn {
+    color: #000;
+}
+
+.back-btn:active {
+    background: #f0f0f0;
+}
+
+.share-btn {
+    color: #0066cc;
+}
+
+.share-btn:active {
+    background: #f0f7ff;
+}
+
+.input-section {
+    padding: 16px 20px;
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.url-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.load-btn {
+    padding: 10px 16px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.load-btn:active {
+    background: #333;
+}
+
+.loading,
+.error {
+    padding: 16px 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.error {
+    color: #d32f2f;
+    background: #ffebee;
+    border-bottom: 1px solid #ffcdd2;
+}
+
+#sourceInfo {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.source-header {
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.source-header-image {
+    width: 100%;
+    height: 120px;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+.source-header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.source-details {
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #fff;
+}
+
+.source-icon-wrapper {
+    flex-shrink: 0;
+}
+
+.source-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    object-fit: cover;
+}
+
+.source-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.source-text h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #666;
+}
+
+.source-description-section {
+    padding: 0 20px 16px;
+    flex-shrink: 0;
+}
+
+.description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.website-link {
+    font-size: 13px;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.website-link:active {
+    color: #0052a3;
+}
+
+.install-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 0 20px 16px;
+    flex-shrink: 0;
+}
+
+.install-btn {
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.install-btn span {
+    display: block;
+}
+
+.altstore-btn {
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.altstore-btn:active {
+    background: #f0f7ff;
+}
+
+.sidestore-btn {
+    border-color: #7c3aed;
+    color: #7c3aed;
+}
+
+.sidestore-btn:active {
+    background: #faf5ff;
+}
+
+.feather-btn {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.feather-btn:active {
+    background: #fffbf0;
+}
+
+.trusted-sources {
+    padding: 16px 20px;
+    flex-shrink: 0;
+}
+
+.trusted-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.trusted-sources-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.trusted-source-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    background: none;
+    display: flex;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: left;
+}
+
+.trusted-source-card:active {
+    background: #f5f5f5;
+}
+
+.source-card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.source-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.source-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 2px;
+}
+
+.source-card-subtitle {
+    font-size: 13px;
+    color: #666;
+}
+
+.source-checkmark {
+    margin-left: 6px;
+    color: #0066cc;
+    font-size: 16px;
+}
+
+.trusted-source-btn {
+    width: 100%;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    background: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+
+.trusted-source-btn:last-child {
+    margin-bottom: 0;
+}
+
+.trusted-source-btn:active {
+    background: #f5f5f5;
+}
+
+.trusted-source-btn .checkmark {
+    font-size: 16px;
+    color: #0066cc;
+    flex-shrink: 0;
+}
+
+.apps-section {
+    padding: 0 20px 20px;
+    flex-shrink: 0;
+}
+
+.apps-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.apps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.app-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.app-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.app-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.app-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.app-developer {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.app-subtitle {
+    font-size: 13px;
+    color: #333;
+}
+
+.app-version {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+}
+

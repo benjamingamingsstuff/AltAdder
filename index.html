@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AltAdder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Page -->
+        <div id="mainPage" class="page">
+            <div class="container">
+                <div class="header">
+                    <h1>AltAdder</h1>
+                </div>
+                
+                <div class="input-section">
+                    <input 
+                        type="url" 
+                        id="sourceUrl" 
+                        placeholder="Enter AltSource URL..."
+                        class="url-input"
+                    >
+                    <button id="loadBtn" class="load-btn">Load Source</button>
+                </div>
+
+                <div id="trustedSources" class="trusted-sources">
+                    <div class="trusted-label">Trusted Sources</div>
+                    <div id="trustedSourcesCards" class="trusted-sources-cards"></div>
+                </div>
+
+                <div id="errorContainer" class="error" style="display: none;"></div>
+                <div id="loadingContainer" class="loading" style="display: none;">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Source Detail Page -->
+        <div id="sourcePage" class="page" style="display: none;">
+            <div class="container">
+                <div class="source-header-bar">
+                    <button id="backBtn" class="back-btn">← Back</button>
+                    <button id="shareBtn" class="share-btn">Share</button>
+                </div>
+
+                <div id="sourceInfo">
+                    <div class="source-header">
+                        <div class="source-header-image" id="headerImage"></div>
+                        <div class="source-details">
+                            <div class="source-icon-wrapper">
+                                <img id="sourceIcon" class="source-icon" alt="Source Icon">
+                            </div>
+                            <div class="source-text">
+                                <h2 id="sourceName"></h2>
+                                <p id="sourceSubtitle" class="subtitle"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="source-description-section">
+                        <p id="sourceDescription" class="description"></p>
+                        <a id="sourceWebsite" class="website-link" target="_blank"></a>
+                    </div>
+
+                    <div class="install-buttons">
+                        <a id="altStoreBtn" class="install-btn altstore-btn" target="_blank">
+                            <span>AltStore</span>
+                        </a>
+                        <a id="sideStoreBtn" class="install-btn sidestore-btn" target="_blank">
+                            <span>SideStore</span>
+                        </a>
+                        <a id="featherBtn" class="install-btn feather-btn" target="_blank">
+                            <span>Feather</span>
+                        </a>
+                    </div>
+
+                    <div class="apps-section">
+                        <h3>Apps</h3>
+                        <div id="appsList" class="apps-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
