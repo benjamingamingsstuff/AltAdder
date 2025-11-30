@@ -234,7 +234,7 @@ function shareSource() {
     if (navigator.share) {
         navigator.share({
             title: 'AltAdder',
-            text: 'Check out this AltSource',
+            text: '',
             url: shareUrl
         }).catch(() => {});
     } else {
