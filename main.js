@@ -286,19 +286,27 @@ function shareSource() {
 
     const shareUrl = `${window.location.origin}${window.location.pathname}?source=${encodeURIComponent(currentSourceUrl)}`;
     
-    // Try to use Web Share API if available
-    if (navigator.share) {
-        navigator.share({
-            title: 'AltAdder',
-            text: '',
-            url: shareUrl
-        }).catch(() => {});
-    } else {
-        // Fallback: copy to clipboard
+    // Always copy only the link to clipboard (no extra text)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(shareUrl).then(() => {
             alert('Share link copied to clipboard!');
         }).catch(() => {
             alert('Could not copy link');
         });
+    } else {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = shareUrl;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            alert('Share link copied to clipboard!');
+        } catch (e) {
+            alert('Could not copy link');
+        }
+        document.body.removeChild(textarea);
     }
 }
