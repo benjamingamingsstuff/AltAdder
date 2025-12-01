@@ -42,7 +42,7 @@
                     <button id="backBtn" class="back-btn">← Back</button>
                     <button id="shareBtn" class="share-btn">Copy Link</button>
                 </div>
-
+                
                 <div id="sourceInfo">
                     <div class="source-header">
                         <div class="source-header-image" id="headerImage"></div>
@@ -72,12 +72,34 @@
                         <a id="featherBtn" class="install-btn feather-btn" target="_blank">
                             <span>Feather</span>
                         </a>
+                        <a id="liveContainerBtn" class="install-btn livecontainer-btn" target="_blank" style="display:none;">
+                            <span>LiveContainer</span>
+                        </a>
+                        <button id="copySourceBtn" class="install-btn copy-source-btn" type="button" style="background:none;">
+                            <span>Copy Source link</span>
+                        </button>
                     </div>
 
                     <div class="apps-section">
                         <h3>Apps</h3>
                         <div id="appsList" class="apps-list"></div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Help button and modal -->
+            <button id="helpBtn" class="help-btn" aria-label="Help">?</button>
+
+            <div id="helpModal" class="help-modal" role="dialog" aria-modal="true" style="display:none;">
+                <div class="help-modal-content">
+                    <button id="helpCloseBtn" class="help-close" aria-label="Close">✕</button>
+                    <h3>What each option does</h3>
+                    <ul>
+                        <li><strong>AltStore</strong> — The original and best-known iOS sideloading tool for adding AltSources.</li>
+                        <li><strong>SideStore</strong> — A fork of AltStore, works mostly on-device (may require Wi‑Fi; cellular can be limited).</li>
+                        <li><strong>Feather</strong> — Another sideloading tool that supports adding AltSources directly.</li>
+                        <li><strong>LiveContainer</strong> — Runs iOS apps without installing (bypasses the 3-app limit) and supports AltSources.</li>
+                    </ul>
                 </div>
             </div>
         </div>

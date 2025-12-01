@@ -6,6 +6,11 @@ const mainPage = document.getElementById('mainPage');
 const sourcePage = document.getElementById('sourcePage');
 const backBtn = document.getElementById('backBtn');
 const shareBtn = document.getElementById('shareBtn');
+const liveContainerBtn = document.getElementById('liveContainerBtn');
+const copySourceBtn = document.getElementById('copySourceBtn');
+const helpBtn = document.getElementById('helpBtn');
+const helpModal = document.getElementById('helpModal');
+const helpCloseBtn = document.getElementById('helpCloseBtn');
 
 const TRUSTED_SOURCES = [
     'https://cdn.altstore.io/file/altstore/apps.json',
@@ -13,6 +18,9 @@ const TRUSTED_SOURCES = [
     'https://raw.githubusercontent.com/LiveContainer/LiveContainer/refs/heads/main/apps.json',
     'https://raw.githubusercontent.com/actuallyaridan/NeoFreeBird/refs/heads/main/AltSource.json'
 ];
+
+const LIVE_CONTAINER_DIRECT_URL = 'livecontainer://source?url=';
+const LIVE_CONTAINER_TRUSTED_URL = 'https://raw.githubusercontent.com/LiveContainer/LiveContainer/refs/heads/main/apps.json';
 
 let currentSourceUrl = '';
 
@@ -35,7 +43,42 @@ backBtn.addEventListener('click', () => {
     sourceUrlInput.value = '';
 });
 
+// Help modal handlers
+if (helpBtn && helpModal) {
+    helpBtn.addEventListener('click', () => {
+        helpModal.style.display = 'block';
+    });
+}
+if (helpCloseBtn && helpModal) {
+    helpCloseBtn.addEventListener('click', () => {
+        helpModal.style.display = 'none';
+    });
+}
+// Close modal when clicking outside the content
+document.addEventListener('click', (e) => {
+    if (!helpModal || helpModal.style.display === 'none') return;
+    const withinModal = helpModal.contains(e.target);
+    const isHelpButton = e.target === helpBtn || helpBtn.contains(e.target);
+    if (!withinModal && !isHelpButton) {
+        helpModal.style.display = 'none';
+    }
+});
+// Close modal with Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && helpModal && helpModal.style.display !== 'none') {
+        helpModal.style.display = 'none';
+    }
+});
+
 shareBtn.addEventListener('click', shareSource);
+copySourceBtn.addEventListener('click', () => {
+    if (!currentSourceUrl) return;
+    navigator.clipboard.writeText(currentSourceUrl).then(() => {
+        alert('Source URL copied to clipboard!');
+    }).catch(() => {
+        alert('Could not copy source URL');
+    });
+});
 
 // Load trusted sources on page init
 window.addEventListener('load', () => {
@@ -139,6 +182,9 @@ function displaySource(data, sourceUrl) {
     const isTrusted = TRUSTED_SOURCES.includes(sourceUrl);
     const sourceName = document.getElementById('sourceName');
     sourceName.textContent = data.name || 'Unknown Source';
+    // remove any previous checkmark span
+    const existingCheck = sourceName.querySelector('.source-checkmark');
+    if (existingCheck) existingCheck.remove();
     if (isTrusted) {
         const checkmark = document.createElement('span');
         checkmark.className = 'source-checkmark';
@@ -175,6 +221,16 @@ function displaySource(data, sourceUrl) {
     document.getElementById('altStoreBtn').href = `altstore://source?url=${encodeURIComponent(sourceUrl)}`;
     document.getElementById('sideStoreBtn').href = `sidestore://source?url=${encodeURIComponent(sourceUrl)}`;
     document.getElementById('featherBtn').href = `feather://source/${encodeURIComponent(sourceUrl)}`;
+
+    // LiveContainer button: hide when the current source is LiveContainer's own apps.json
+    if (sourceUrl === LIVE_CONTAINER_TRUSTED_URL) {
+        liveContainerBtn.style.display = 'none';
+        liveContainerBtn.href = '#';
+    } else {
+        liveContainerBtn.style.display = '';
+        // Use the livecontainer custom URL scheme for adding sources
+        liveContainerBtn.href = `${LIVE_CONTAINER_DIRECT_URL}${encodeURIComponent(sourceUrl)}&r=livecontainer`;
+    }
 
     // Apps list
     displayApps(data.apps || []);
@@ -234,7 +290,7 @@ function shareSource() {
     if (navigator.share) {
         navigator.share({
             title: 'AltAdder',
-            text: '',
+            text: 'Check out this AltSource',
             url: shareUrl
         }).catch(() => {});
     } else {
